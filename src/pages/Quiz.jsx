@@ -185,7 +185,6 @@ function Quiz() {
             onChange={handleLanguageChange}
             className="language-selector"
           >
-            <option value="java">Java</option>
             <option value="c">C</option>
             <option value="python">Python</option>
           </select>
