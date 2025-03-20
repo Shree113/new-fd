@@ -1,56 +1,45 @@
 .header {
-  width: 100%;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  background-color: #FFCA18;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .headerContent {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 20px;
 }
 
 .logoGroup {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
 }
 
-.logo, .instituteLogo {
-  height: 60px;
-  width: auto;
-}
-
-.autonomousText {
-  color: #021a60;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.875rem;
-  font-weight: 600;
+.logo {
+  width: 200px;  /* Increased logo size */
+  height: auto;
+  object-fit: contain;
 }
 
 .navigation {
   display: flex;
   gap: 2rem;
-  align-items: center;
 }
 
 .navLink {
-  color: #021a60;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.125rem;
-  font-weight: 500;
+  color: #000000;
   text-decoration: none;
-  transition: color 0.3s ease;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .navLink:hover {
-  color: #2563eb;
+  color: #333333;
 }
 
 .mobileMenuButton {
@@ -61,20 +50,35 @@
   padding: 0.5rem;
 }
 
-@media (max-width: 768px) {
-  .headerContent {
-    padding: 1rem;
-  }
+.mobileMenuButton svg {
+  width: 24px;
+  height: 24px;
+}
 
-  .logo, .instituteLogo {
-    height: 40px;
+@media (max-width: 768px) {
+  .logo {
+    width: 150px;  /* Slightly smaller on mobile */
   }
 
   .navigation {
-    display: none;
+    display: none;  /* Hide navigation on mobile */
   }
 
   .mobileMenuButton {
-    display: block;
+    display: block;  /* Show mobile menu button */
+  }
+
+  /* When navigation is active (you'll need to add JavaScript for this) */
+  .navigation.active {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: #FFCA18;
+    padding: 1rem;
+    gap: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 }
