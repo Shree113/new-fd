@@ -100,7 +100,7 @@
   padding: clamp(0.8rem, 2vw, 1rem);
   background-color: #f8fafc;
   border-radius: 8px;
-  color: #334155;
+  color: #535533;
   font-size: clamp(0.9rem, 1.5vw, 1.1rem);
   line-height: 1.6;
   border-left: 4px solid #2563eb;
@@ -126,8 +126,9 @@
   background-color: black;
   padding: clamp(1rem, 2vw, 1.5rem);
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(135, 131, 131, 0.1);
+  box-shadow: 0 4px 6px rgba(225, 210, 41, 0.1);
   height: 100%;
+  color:white ;
 }
 
 .challengeTypeHeader {
