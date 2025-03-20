@@ -19,7 +19,6 @@ function Quiz() {
       return;
     }
 
-    // Update fetch URLs to use environment variables
     const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
     fetch(`${apiUrl}/api/questions/`)
       .then((res) => {

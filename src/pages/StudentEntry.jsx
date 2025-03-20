@@ -17,13 +17,22 @@ export default function StudentEntry() {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/student/', {
+      const response = await fetch(`${apiUrl}/api/students/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      })
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          // ... other student data
+        }),
+      });
+      
       if (response.ok) {
         const data = await response.json()
         // store student ID in localStorage or context to track them
@@ -34,7 +43,7 @@ export default function StudentEntry() {
         console.log('Error creating student')
       }
     } catch (error) {
-      console.log(error)
+      console.error('Error:', error);
     }
   }
 
