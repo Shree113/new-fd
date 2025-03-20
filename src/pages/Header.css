@@ -1,84 +1,31 @@
 .header {
-  background-color: #FFCA18;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);  /* Increased shadow for better contrast */
 }
 
-.headerContent {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-}
-
-.logoGroup {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  width: 200px;  /* Increased logo size */
-  height: auto;
+.logo, .instituteLogo {
+  height: 80px;  /* Increased from 60px */
+  width: auto;
   object-fit: contain;
 }
 
-.navigation {
-  display: flex;
-  gap: 2rem;
-}
-
 .navLink {
-  color: #000000;
+  color: #000000;  /* Changed to black for better contrast */
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem;  /* Slightly larger font */
+  font-weight: 600;  /* Made text bolder */
   text-decoration: none;
-  font-weight: 600;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
 }
 
 .navLink:hover {
-  color: #333333;
+  color: #1a41bc;  /* Darker blue for better contrast */
 }
 
-.mobileMenuButton {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.mobileMenuButton svg {
-  width: 24px;
-  height: 24px;
-}
-
+/* Update mobile responsiveness */
 @media (max-width: 768px) {
-  .logo {
-    width: 150px;  /* Slightly smaller on mobile */
-  }
-
-  .navigation {
-    display: none;  /* Hide navigation on mobile */
-  }
-
-  .mobileMenuButton {
-    display: block;  /* Show mobile menu button */
-  }
-
-  /* When navigation is active (you'll need to add JavaScript for this) */
-  .navigation.active {
-    display: flex;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    background-color: #FFCA18;
-    padding: 1rem;
-    gap: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  .logo, .instituteLogo {
+    height: 60px;  /* Increased from 40px */
   }
 }
