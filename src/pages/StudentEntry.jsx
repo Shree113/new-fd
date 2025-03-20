@@ -16,36 +16,38 @@ export default function StudentEntry() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
-    try {
-      const response = await fetch(`${apiUrl}/api/students/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          // ... other student data
-        }),
-      });
-      
-      if (response.ok) {
-        const data = await response.json()
-        // store student ID in localStorage or context to track them
-        localStorage.setItem('studentId', data.id)
-        localStorage.setItem('studentEntry', JSON.stringify(formData)) // Store details
-        navigate('/instructions')
-      } else {
-        console.log('Error creating student')
-      }
-    } catch (error) {
-      console.error('Error:', error);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+  try {
+    const response = await fetch(`${apiUrl}/api/students/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: formData.name,  // ✅ Use formData.name
+        email: formData.email, // ✅ Use formData.email
+        department: formData.department,
+        college: formData.college,
+        year: formData.year,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem('studentId', data.id);
+      localStorage.setItem('studentEntry', JSON.stringify(formData)); // Store details
+      navigate('/instructions');
+    } else {
+      console.log('Error creating student');
     }
+  } catch (error) {
+    console.error('Error:', error);
   }
+};
+
 
   return (
     <div className="student-entry-container">
