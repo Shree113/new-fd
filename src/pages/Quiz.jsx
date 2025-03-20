@@ -11,7 +11,10 @@ function Quiz() {
     return savedIndex ? parseInt(savedIndex, 0) : 0;
   });
   const [selectedOption, setSelectedOption] = useState(null);
-  const [timer, setTimer] = useState(120);
+  const [timer, setTimer] = useState(() => {
+    const savedTimer = localStorage.getItem('quizTimer');
+    return savedTimer ? parseInt(savedTimer, 0) : 120;
+  });
   const [progress, setProgress] = useState(5);
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState('java');
@@ -91,22 +94,64 @@ function Quiz() {
       setCurrentIndex(prev => prev + 1);
       setSelectedOption(null);
       setTimer(120);
+      localStorage.setItem('quizTimer', '120');
     }
   }, [questions, currentIndex, selectedOption, navigate]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer(prev => {
-        if (prev <= 1) {
+        const newTimer = prev <= 1 ? 0 : prev - 1;
+        localStorage.setItem('quizTimer', newTimer);
+        if (newTimer <= 0) {
           handleSubmit();
-          return 0;
         }
-        return prev - 1;
+        return newTimer;
       });
     }, 1000);
   
     return () => clearInterval(interval);
-  }, [timer, handleSubmit]);
+  }, [handleSubmit]);
+
+  // Update timer when moving to next question
+  const handleSubmit = useCallback(async () => {
+    if (!questions.length) return;
+
+    const studentId = localStorage.getItem('studentId');
+    const currentQuestion = questions[currentIndex];
+    const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+
+    if (selectedOption !== null) {
+      try {
+        const response = await fetch(`${apiUrl}/api/submit-answer/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            student_id: studentId,
+            question_id: currentQuestion.id,
+            chosen_option: String.fromCharCode(65 + selectedOption),
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to submit answer');
+        }
+      } catch (error) {
+        console.error('Error submitting answer:', error);
+      }
+    }
+  
+    if (currentIndex + 1 >= questions.length) {
+      localStorage.removeItem('quizCurrentIndex');
+      localStorage.removeItem('quizTimer'); // Clear timer on completion
+      navigate('/thank-you');
+    } else {
+      setCurrentIndex(prev => prev + 1);
+      setSelectedOption(null);
+      setTimer(120);
+      localStorage.setItem('quizTimer', '120');
+    }
+  }, [questions, currentIndex, selectedOption, navigate]);
 
   const handleCodeChange = (e) => {
     setCode(e.target.value);
