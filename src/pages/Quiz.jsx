@@ -6,9 +6,12 @@ import "./Quiz.css";
 function Quiz() {
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(() => {
+    const savedIndex = localStorage.getItem('quizCurrentIndex');
+    return savedIndex ? parseInt(savedIndex, 0) : 0;
+  });
   const [selectedOption, setSelectedOption] = useState(null);
-  const [timer, setTimer] = useState(120); // 2 minutes per question
+  const [timer, setTimer] = useState(120);
   const [progress, setProgress] = useState(5);
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState('java');
@@ -45,6 +48,15 @@ function Quiz() {
       });
   }, [navigate]);
 
+  // Update localStorage when currentIndex changes
+  useEffect(() => {
+    localStorage.setItem('quizCurrentIndex', currentIndex);
+    if (questions.length > 0) {
+      setProgress(((currentIndex + 1) / questions.length) * 100);
+    }
+  }, [currentIndex, questions.length]);
+
+  // Clear progress when quiz is completed
   const handleSubmit = useCallback(async () => {
     if (!questions.length) return;
 
@@ -60,7 +72,7 @@ function Quiz() {
           body: JSON.stringify({
             student_id: studentId,
             question_id: currentQuestion.id,
-            chosen_option: String.fromCharCode(65 + selectedOption), // Convert 0-3 to A-D
+            chosen_option: String.fromCharCode(65 + selectedOption),
           }),
         });
 
@@ -73,12 +85,12 @@ function Quiz() {
     }
   
     if (currentIndex + 1 >= questions.length) {
+      localStorage.removeItem('quizCurrentIndex'); // Clear progress on completion
       navigate('/thank-you');
     } else {
       setCurrentIndex(prev => prev + 1);
       setSelectedOption(null);
       setTimer(120);
-      setProgress(((currentIndex + 2) / questions.length) * 100);
     }
   }, [questions, currentIndex, selectedOption, navigate]);
 
