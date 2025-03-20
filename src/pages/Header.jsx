@@ -1,5 +1,6 @@
 import React from "react";
 import "./Header.css";
+import collegeLogo from "../assets/college-logo.png";  // Add your college logo image
 
 function Header() {
   return (
@@ -7,25 +8,17 @@ function Header() {
       <div className="headerContent">
         <div className="logoGroup">
           <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/67c6115c241c209d7b06387f86f8e92ba55fdc9b"
+            src={collegeLogo}
             alt="College Logo"
             className="logo"
           />
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/5c7a6da01525a739302af9dc78a7647e418853db"
-            alt="Institution Logo"
-            className="instituteLogo"
-          />
-          <p className="autonomousText">
-            (JCTCET is An Autonomous Institution)
-          </p>
         </div>
 
         <nav className="navigation">
           <a href="#home" className="navLink">
             Home
           </a>
-          <a href="#college" className ="navLink">
+          <a href="#college" className="navLink">
             College
           </a>
         </nav>
