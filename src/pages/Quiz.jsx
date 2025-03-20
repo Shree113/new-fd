@@ -60,7 +60,7 @@ function Quiz() {
   }, [currentIndex, questions.length]);
 
   // Clear progress when quiz is completed
-  const handleSubmit = useCallback(async () => {
+  const handleQuizSubmit = useCallback(async () => {
     if (!questions.length) return;
 
     const studentId = localStorage.getItem('studentId');
