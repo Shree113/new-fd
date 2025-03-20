@@ -9,9 +9,10 @@
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;  /* Changed to center */
-  padding: 20px 60px;   /* Increased and balanced padding */
+  justify-content: center;  /* Changed from space-between to center */
+  align-items: center;
+  padding: 20px 60px;
+  gap: 120px;  /* Added gap to create space between sections */
 }
 
 .contactSection {
