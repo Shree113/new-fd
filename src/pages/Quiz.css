@@ -241,21 +241,9 @@ body {
   resize: vertical;
 }
 
-.output-container {
-  background-color: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.output-header {
-  background-color: #f1f5f9;
-  padding: 0.5rem 1rem;
-  font-weight: 500;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.output {
+.output.dark-theme {
+  background-color: #ffffff; /* Changed from #1e293b to white */
+  color: #000000;
   padding: 1rem;
   max-height: 150px;
   overflow-y: auto;
@@ -264,6 +252,22 @@ body {
   line-height: 1.5;
   margin: 0;
   white-space: pre-wrap;
+  border-radius: 0 0 6px 6px;
+}
+
+.output-container {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.output-header {
+  background-color: #334155;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  color: #e2e8f0;
+  border-bottom: 1px solid #475569;
 }
 
 /* Responsive adjustments for compiler */
