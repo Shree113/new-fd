@@ -1,0 +1,143 @@
+"use client";
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Quiz.css";
+
+function Quiz() {
+  const navigate = useNavigate();
+  const [questions, setQuestions] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [timer, setTimer] = useState(120); // 2 minutes per question
+  const [progress, setProgress] = useState(5);
+
+  // Fetch questions when component mounts
+  useEffect(() => {
+    const studentId = localStorage.getItem('studentId');
+    if (!studentId) {
+      navigate('/');
+      return;
+    }
+
+    // Update fetch URLs to use environment variables
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+    fetch(`${apiUrl}/api/questions/`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch questions');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setQuestions(data);
+          setProgress((1 / data.length) * 100);
+        } else {
+          throw new Error('Invalid data format');
+        }
+      })
+      .catch((err) => {
+        console.error('Error fetching questions:', err);
+        // You might want to show an error message to the user
+      });
+  }, [navigate]);
+
+  const handleSubmit = useCallback(async () => {
+    if (!questions.length) return;
+
+    const studentId = localStorage.getItem('studentId');
+    const currentQuestion = questions[currentIndex];
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+
+    if (selectedOption !== null) {
+      try {
+        const response = await fetch(`${apiUrl}/api/submit-answer/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            student_id: studentId,
+            question_id: currentQuestion.id,
+            chosen_option: String.fromCharCode(65 + selectedOption), // Convert 0-3 to A-D
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to submit answer');
+        }
+      } catch (error) {
+        console.error('Error submitting answer:', error);
+      }
+    }
+  
+    if (currentIndex + 1 >= questions.length) {
+      navigate('/thank-you');
+    } else {
+      setCurrentIndex(prev => prev + 1);
+      setSelectedOption(null);
+      setTimer(120);
+      setProgress(((currentIndex + 2) / questions.length) * 100);
+    }
+  }, [questions, currentIndex, selectedOption, navigate]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer(prev => {
+        if (prev <= 1) {
+          handleSubmit();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  
+    return () => clearInterval(interval);
+  }, [timer, handleSubmit]);
+
+  if (!questions.length) {
+    return <div className="loading">Loading questions...</div>;
+  }
+
+  const currentQuestion = questions[currentIndex];
+
+  return (
+    <div className="quiz-container">
+      <div className="timer">
+        Time Left: {Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}
+      </div>
+      
+      <div className="progress-section">
+        <div className="progress-text">
+          Question {currentIndex + 1} of {questions.length}
+        </div>
+        <div className="progress-bar">
+          <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+        </div>
+      </div>
+
+      <div className="question-section">
+        <h2>{currentQuestion.text}</h2>
+        <div className="options">
+          {['A', 'B', 'C', 'D'].map((option, index) => (
+            <button
+              key={option}
+              className={`option ${selectedOption === index ? 'selected' : ''}`}
+              onClick={() => setSelectedOption(index)}
+            >
+              {option}. {currentQuestion[`option_${option.toLowerCase()}`]}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <button 
+        className="submit-btn"
+        onClick={handleSubmit}
+        disabled={selectedOption === null}
+      >
+        {currentIndex === questions.length - 1 ? 'Finish' : 'Next'}
+      </button>
+    </div>
+  );
+}
+
+export default Quiz;
