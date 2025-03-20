@@ -19,7 +19,7 @@ function Quiz() {
       return;
     }
 
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+    const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
     fetch(`${apiUrl}/api/questions/`)
       .then((res) => {
         if (!res.ok) {
@@ -46,7 +46,7 @@ function Quiz() {
 
     const studentId = localStorage.getItem('studentId');
     const currentQuestion = questions[currentIndex];
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+    const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
 
     if (selectedOption !== null) {
       try {
