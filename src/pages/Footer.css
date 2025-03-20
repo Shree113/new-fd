@@ -10,33 +10,14 @@
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
-  flex-direction: column;  /* Changed to column */
-  justify-content: center; /* Center vertically */
+  flex-direction: row;    /* Change back to row */
+  justify-content: space-between;  /* Space between sections */
+  align-items: flex-start;  /* Align items to top */
   padding: 0 20px;
-  text-align: center;     /* Center text */
-}
-
-.footerHeading {
-  text-align: center;
-  margin-bottom: 1rem;    /* Add space between heading and content */
-}
-
-.socialSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 1rem 0;         /* Add vertical spacing */
-}
-
-/* Update media query to maintain centering on mobile */
-@media (max-width: 768px) {
-  .footerContent {
-      gap: 1rem;          /* Add some spacing between elements */
-  }
 }
 
 .contactSection {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1px;
@@ -45,10 +26,33 @@
 }
 
 .socialSection {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+}
+
+.faqSection {
+  flex: 1;
+  text-align: right;
+}
+
+/* Keep the mobile responsiveness */
+@media (max-width: 768px) {
+  .footerContent {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .contactSection,
+  .socialSection,
+  .faqSection {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+  }
 }
 
 .socialSection a {
