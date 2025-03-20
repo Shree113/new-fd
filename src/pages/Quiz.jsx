@@ -104,9 +104,8 @@ function Quiz() {
     setLanguage(e.target.value);
     
     // Set default code template based on language
-    if (e.target.value === 'java') {
-      setCode('public class Main {\n    public static void main(String[] args) {\n        // Your code here\n        System.out.println("Hello, World!");\n    }\n}');
-    } else if (e.target.value === 'c') {
+  
+    if (e.target.value === 'c') {
       setCode('#include <stdio.h>\n\nint main() {\n    // Your code here\n    printf("Hello, World!\\n");\n    return 0;\n}');
     } else if (e.target.value === 'python') {
       setCode('# Your code here\nprint("Hello, World!")');
