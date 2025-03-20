@@ -118,7 +118,7 @@ function Quiz() {
     setOutput('Compiling and running...');
     
     try {
-      const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
       const response = await fetch(`${apiUrl}/api/compile/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -129,14 +129,13 @@ function Quiz() {
       });
       
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Compilation failed');
+        throw new Error(`Server returned ${response.status}: ${response.statusText}`);
       }
       
       const result = await response.json();
       setOutput(result.output || 'No output');
     } catch (error) {
-      setOutput(`Error: ${error.message}`);
+      setOutput(`Error: ${error.message}\n\nMake sure the /api/compile/ endpoint is implemented on your backend.`);
     } finally {
       setIsCompiling(false);
     }
