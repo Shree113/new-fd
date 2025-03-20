@@ -242,7 +242,7 @@ body {
 }
 
 .output.dark-theme {
-  background-color: #ffffff; /* Changed from #1e293b to white */
+  background-color: #ffffff;
   color: #000000;
   padding: 1rem;
   max-height: 150px;
@@ -253,6 +253,12 @@ body {
   margin: 0;
   white-space: pre-wrap;
   border-radius: 0 0 6px 6px;
+}
+
+/* Add styles for error messages */
+.output .error {
+  color: #dc2626;
+  font-weight: 500;
 }
 
 .output-container {
