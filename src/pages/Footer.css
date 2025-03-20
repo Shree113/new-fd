@@ -1,26 +1,27 @@
 .footer {
   background-color: #FFCA18;
   color: rgb(2, 2, 2);
-
+  padding: 20px 0;  /* Add padding for better spacing */
 }
 
 .footerContent {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
-  flex-direction: row;    /* Change back to row */
-  justify-content: space-between;  /* Space between sections */
-  align-items: flex-start;  /* Align items to top */
-  padding: 0 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 40px;
 }
 
 .contactSection {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 10px;  /* Increased gap for better spacing between contact items */
   align-items: flex-start;
   text-align: left;
+  padding-right: 20px;
 }
 
 .socialSection {
@@ -28,20 +29,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 15px;  /* Increased gap for better spacing */
+  padding: 0 20px;
 }
 
 .faqSection {
   flex: 1;
   text-align: right;
+  padding-left: 20px;
 }
 
-/* Keep the mobile responsiveness */
+.socialSection a {
+  color: rgb(2, 2, 2);
+  text-decoration: none;
+  padding: 5px 0;  /* Add padding to links */
+}
+
+/* Mobile responsiveness */
 @media (max-width: 768px) {
+  .footer {
+    padding: 20px 15px;
+  }
+
   .footerContent {
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 30px;  /* Increased gap for mobile view */
   }
 
   .contactSection,
@@ -50,40 +63,6 @@
     width: 100%;
     text-align: center;
     align-items: center;
-  }
-}
-
-.socialSection a {
-  color: rgb(2, 2, 2);
-  text-decoration: none;
-}
-
-.faqSection {
-  text-align: right;
-}
-
-@media (max-width: 768px) {
-  .footer {
-      padding: 2rem 1rem;
-  }
-
-  .footerContent {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 0rem;
-  }
-
-  .contactSection {
-      align-items: center;
-      text-align: center;
-  }
-
-  .socialSection {
-      align-items: center;
-  }
-
-  .faqSection {
-      text-align: center;
+    padding: 0;
   }
 }
