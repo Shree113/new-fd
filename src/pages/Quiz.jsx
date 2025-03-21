@@ -163,6 +163,13 @@ function Quiz() {
 
       <div className="question-section">
         <h2>{currentQuestion.text}</h2>
+        
+        {currentQuestion.code_snippet && (
+            <pre className="code-box">
+                {currentQuestion.code_snippet}
+            </pre>
+        )}
+        
         <div className="options">
           {['A', 'B', 'C', 'D'].map((option, index) => (
             <button

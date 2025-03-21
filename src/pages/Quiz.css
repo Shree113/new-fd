@@ -233,8 +233,7 @@ body {
   padding: 1rem;
   border-radius: 6px;
   border: 1px solid #e2e8f0;
-  /* Add this to your existing CSS */
-  .code-question {
+  .code-box {
       background-color: #1e293b;
       color: #e2e8f0;
       padding: 1rem;
@@ -243,9 +242,9 @@ body {
       white-space: pre-wrap;
       margin: 1rem 0;
       overflow-x: auto;
+      font-size: 0.9rem;
+      line-height: 1.5;
   }
-  font-size: 0.9rem;
-  line-height: 1.5;
   resize: vertical;
 }
 
