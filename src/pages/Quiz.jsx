@@ -148,78 +148,63 @@ function Quiz() {
 
   return (
     <div className="quiz-container">
-      <div className="timer">
-        Time Left: {Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}
-      </div>
-      
-      <div className="progress-section">
-        <div className="progress-text">
-          Question {currentIndex + 1} of {questions.length}
-        </div>
-        <div className="progress-bar">
-          <div className="progress-fill" style={{ width: `${progress}%` }}></div>
-        </div>
-      </div>
-
-      <div className="question-section">
-        <h2>{currentQuestion.text}</h2>
+        {renderQuestionText(currentQuestion)}
         <div className="options">
-          {['A', 'B', 'C', 'D'].map((option, index) => (
-            <button
-              key={option}
-              className={`option ${selectedOption === index ? 'selected' : ''}`}
-              onClick={() => setSelectedOption(index)}
-            >
-              {option}. {currentQuestion[`option_${option.toLowerCase()}`]}
-            </button>
-          ))}
+            {['A', 'B', 'C', 'D'].map((option, index) => (
+                <button
+                    key={option}
+                    className={`option ${selectedOption === index ? 'selected' : ''}`}
+                    onClick={() => setSelectedOption(index)}
+                >
+                    {option}. {currentQuestion[`option_${option.toLowerCase()}`]}
+                </button>
+            ))}
         </div>
-      </div>
 
-      {/* Online Compiler Section */}
-      <div className="compiler-section">
-        <h3>Online Code Compiler</h3>
-        <div className="compiler-controls">
-          <select 
-            value={language} 
-            onChange={handleLanguageChange}
-            className="language-selector"
-          >
-            <option value="c">C</option>
-            <option value="python">Python</option>
-          </select>
-          <button 
-            className="run-btn"
-            onClick={compileAndRun}
-            disabled={isCompiling}
-          >
-            {isCompiling ? 'Running...' : 'Run Code'}
-          </button>
+        {/* Online Compiler Section */}
+        <div className="compiler-section">
+            <h3>Online Code Compiler</h3>
+            <div className="compiler-controls">
+                <select 
+                    value={language} 
+                    onChange={handleLanguageChange}
+                    className="language-selector"
+                >
+                    <option value="c">C</option>
+                    <option value="python">Python</option>
+                </select>
+                <button 
+                    className="run-btn"
+                    onClick={compileAndRun}
+                    disabled={isCompiling}
+                >
+                    {isCompiling ? 'Running...' : 'Run Code'}
+                </button>
+            </div>
+            <div className="code-editor-container">
+                <textarea
+                    className="code-editor"
+                    value={code}
+                    onChange={handleCodeChange}
+                    placeholder="Write your code here..."
+                    spellCheck="false"
+                ></textarea>
+            </div>
+            <div className="output-container">
+                <div className="output-header">Output:</div>
+                <pre className="output">{output}</pre>
+            </div>
         </div>
-        <div className="code-editor-container">
-          <textarea
-            className="code-editor"
-            value={code}
-            onChange={handleCodeChange}
-            placeholder="Write your code here..."
-            spellCheck="false"
-          ></textarea>
-        </div>
-        <div className="output-container">
-          <div className="output-header">Output:</div>
-          <pre className="output">{output}</pre>
-        </div>
-      </div>
 
-      <button 
-        className="submit-btn"
-        onClick={handleSubmit}
-        disabled={selectedOption === null}
-      >
-        {currentIndex === questions.length - 1 ? 'Finish' : 'Next'}
-      </button>
+        <button 
+            className="submit-btn"
+            onClick={handleSubmit}
+            disabled={selectedOption === null}
+        >
+            {currentIndex === questions.length - 1 ? 'Finish' : 'Next'}
+        </button>
     </div>
-  );
+);
 }
 
 export default Quiz;
