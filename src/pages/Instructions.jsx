@@ -52,9 +52,8 @@ function Instructions() {
           <p className="instructionItem">2. For each missing code elements question, you must identify what's missing (variables, loops, conditions, etc.) and select the correct implementation</p>
           <p className="instructionItem">3. Each question has a time limit of 2 min after this time, the challenge automatically advances to the next question</p>
           <p className="instructionItem">4. Each correct answer earns you 5 points. There is no negative marking for wrong answers</p>
-          <p className="instructionItem">5. You may skip questions, but cannot return to previously answered or skipped questions</p>
-          <p className="instructionItem">6. The entire challenge must be completed within 60min, your timer will be displayed at the top of your screen</p>
-          <p className="instructionItem">7. For "Missing Code Elements" problems, look for missing variables, function parameters, loop conditions or return statements that would make the code work</p>
+          <p className="instructionItem">5. The entire challenge must be completed within 60min, your timer will be displayed at the top of your screen</p>
+          <p className="instructionItem">6. For "Missing Code Elements" problems, look for missing variables, function parameters, loop conditions or return statements that would make the code work</p>
         </section>
 
         <h2 className="challengeTypesHeader">Challenge Types</h2>
