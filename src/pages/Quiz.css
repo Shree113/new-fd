@@ -235,7 +235,7 @@ body {
   border: 1px solid #e2e8f0;
   .code-box {
       background-color: #1e293b;
-      color: #e2e8f0;
+      color: black;
       padding: 1rem;
       border-radius: 6px;
       font-family: 'Consolas', 'Monaco', monospace;
