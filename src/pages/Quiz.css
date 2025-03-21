@@ -274,26 +274,27 @@ body {
   background-color: #1e293b;
   border: 1px solid #334155;
   border-radius: 6px;
-  overflow: hidden;
-  max-height: none; /* Remove any height restriction */
+  overflow: visible; /* Changed from hidden to visible */
+  max-height: none;
 }
 
 .output {
   background-color: #1e293b;
   color: #e2e8f0;
   padding: 1rem;
-  overflow-y: auto;
+  overflow-x: auto;
+  overflow-y: visible; /* Changed from auto to visible */
   font-family: 'Consolas', 'Monaco', monospace;
   font-size: 0.9rem;
   line-height: 1.5;
   margin: 0;
   white-space: pre-wrap;
   border-radius: 0 0 6px 6px;
-  min-height: 100px; /* Ensure minimum height */
-  max-height: none; /* Remove height restriction */
+  min-height: 100px;
+  max-height: none;
+  height: auto; /* Ensure height adjusts to content */
 }
 
-/* Responsive adjustments for compiler */
 @media (max-width: 768px) {
   .compiler-controls {
     flex-direction: column;
@@ -309,8 +310,14 @@ body {
   }
   
   .output {
-    font-size: 0.85rem; /* Slightly smaller font on mobile */
+    font-size: 0.85rem;
     padding: 0.75rem;
-    word-break: break-word; /* Ensure long words don't overflow */
+    word-break: break-word;
+    overflow: visible; /* Ensure content is visible */
+    height: auto; /* Let it expand as needed */
+  }
+  
+  .output-container {
+    overflow: visible; /* Ensure container expands with content */
   }
 }
