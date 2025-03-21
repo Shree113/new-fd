@@ -181,6 +181,28 @@ function Quiz() {
             </button>
           ))}
         </div>
+        
+        <div className="question-navigation">
+          <button 
+            className="skip-btn"
+            onClick={() => {
+              setCurrentIndex(prev => prev + 1);
+              setSelectedOption(null);
+              setTimer(120);
+              setProgress(((currentIndex + 2) / questions.length) * 100);
+            }}
+            disabled={currentIndex === questions.length - 1}
+          >
+            Skip
+          </button>
+          <button 
+            className="next-btn"
+            onClick={handleSubmit}
+            disabled={selectedOption === null}
+          >
+            {currentIndex === questions.length - 1 ? 'Finish' : 'Next'}
+          </button>
+        </div>
       </div>
 
       {/* Online Compiler Section */}

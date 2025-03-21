@@ -321,3 +321,44 @@ body {
     overflow: visible; /* Ensure container expands with content */
   }
 }
+
+.question-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 1rem;
+}
+
+.skip-btn, .next-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  flex: 1;
+  max-width: 200px;
+}
+
+.skip-btn {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+.skip-btn:hover:not(:disabled) {
+  background-color: #cbd5e1;
+}
+
+.next-btn {
+  background-color: #2563eb;
+  color: white;
+}
+
+.next-btn:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.skip-btn:disabled, .next-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
