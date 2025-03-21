@@ -25,7 +25,7 @@ function Header() {
           <a href="#home" className="navLink">
             Home
           </a>
-          <a href="#college" className ="navLink">
+          <a  className ="navLink" href="https://www.jct.ac.in/">
             College
           </a>
         </nav>
