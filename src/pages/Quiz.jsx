@@ -8,16 +8,14 @@ function Quiz() {
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [timer, setTimer] = useState(() => {
-    const savedTimer = localStorage.getItem('timer');
-    return savedTimer ? parseInt(savedTimer, 10) : 120; // Default to 120 if no saved timer
-  });
+  const [timer, setTimer] = useState(120); // 2 minutes per question
   const [progress, setProgress] = useState(5);
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState('java');
   const [output, setOutput] = useState('');
   const [isCompiling, setIsCompiling] = useState(false);
 
+  // Fetch questions when component mounts
   useEffect(() => {
     const studentId = localStorage.getItem('studentId');
     if (!studentId) {
@@ -43,24 +41,9 @@ function Quiz() {
       })
       .catch((err) => {
         console.error('Error fetching questions:', err);
+        // You might want to show an error message to the user
       });
   }, [navigate]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer((prev) => {
-        if (prev <= 1) {
-          handleSubmit();
-          return 0;
-        }
-        const newTimer = prev - 1;
-        localStorage.setItem('timer', newTimer); // Save timer to localStorage
-        return newTimer;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [timer, handleSubmit]);
 
   const handleSubmit = useCallback(async () => {
     if (!questions.length) return;
@@ -77,7 +60,7 @@ function Quiz() {
           body: JSON.stringify({
             student_id: studentId,
             question_id: currentQuestion.id,
-            chosen_option: String.fromCharCode(65 + selectedOption),
+            chosen_option: String.fromCharCode(65 + selectedOption), // Convert 0-3 to A-D
           }),
         });
 
@@ -88,17 +71,30 @@ function Quiz() {
         console.error('Error submitting answer:', error);
       }
     }
-
+  
     if (currentIndex + 1 >= questions.length) {
       navigate('/thank-you');
     } else {
-      setCurrentIndex((prev) => prev + 1);
+      setCurrentIndex(prev => prev + 1);
       setSelectedOption(null);
       setTimer(120);
-      localStorage.removeItem('timer'); // Clear timer from localStorage
       setProgress(((currentIndex + 2) / questions.length) * 100);
     }
   }, [questions, currentIndex, selectedOption, navigate]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer(prev => {
+        if (prev <= 1) {
+          handleSubmit();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  
+    return () => clearInterval(interval);
+  }, [timer, handleSubmit]);
 
   const handleCodeChange = (e) => {
     setCode(e.target.value);
