@@ -7,7 +7,7 @@ function Quiz() {
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null); // Ensure this is initialized
+  const [selectedOption, setSelectedOption] = useState(null);
   const [timer, setTimer] = useState(() => {
     const savedTimer = localStorage.getItem('timer');
     return savedTimer ? parseInt(savedTimer, 10) : 120; // Default to 120 if no saved timer
