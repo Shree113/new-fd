@@ -102,13 +102,14 @@ function Quiz() {
 
   const handleLanguageChange = (e) => {
     setLanguage(e.target.value);
-    
+
     // Set default code template based on language
-  
     if (e.target.value === 'c') {
       setCode('#include <stdio.h>\n\nint main() {\n    // Your code here\n    printf("Hello, World!\\n");\n    return 0;\n}');
     } else if (e.target.value === 'python') {
       setCode('# Your code here\nprint("Hello, World!")');
+    } else if (e.target.value === 'java') {
+      setCode('public class Main {\n    public static void main(String[] args) {\n        // Your code here\n        System.out.println("Hello, World!");\n    }\n}');
     }
   };
 
@@ -216,6 +217,7 @@ function Quiz() {
           >
             <option value="c">C</option>
             <option value="python">Python</option>
+            <option value="java">Java</option>
           </select>
           <button 
             className="run-btn"
